@@ -1,6 +1,6 @@
 # Frequency Analysis of Words
 
-The script takes a text file as a parameter and displays the list of 10 most frequent words
+The script takes a text file as a parameter and displays the list of 10 most frequent words in descending order
 
 # Running the Script
 
