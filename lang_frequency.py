@@ -6,23 +6,27 @@ import sys
 
 def load_data(file_path):
     with open(file_path, 'r') as opened_file:
-        return opened_file.read().lower()
+        return opened_file.read()
 
 
 def get_most_frequent_words(text):
-    words_list = re.sub('[\W]', ' ', text).split()
+    words_list = re.sub('[\W]', ' ', text).lower().split()
     counter = collections.Counter(words_list)
     words_count = 10
-    return counter.most_common(words_count)
+    return dict(counter.most_common(words_count))
 
 
 if __name__ == '__main__':
-    file_path = sys.argv[1]
-    if os.path.exists(file_path) and os.path.isfile(file_path):
-        text = load_data(file_path)
-        words = get_most_frequent_words(text)
-        print('The top 10 most frequent words:\n')
-        for word in words:
-            print('{} : {}'.format(word[0], word[1]))
+    try:
+        file_path = sys.argv[1]
+    except IndexError:
+        print('The file path parameter is missing. Please try again.')
     else:
-        print("The file doesn't exist!")
+        if os.path.exists(file_path) and os.path.isfile(file_path):
+            text = load_data(file_path)
+            words_dict = get_most_frequent_words(text)
+            print('The top 10 most frequent words:\n')
+            for word in words_dict:
+                print('{} : {}'.format(word, words_dict[word]))
+        else:
+            print("The file doesn't exist!")
